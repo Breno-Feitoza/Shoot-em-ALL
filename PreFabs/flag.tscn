@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4d5s6juvo0gj"]
+
+[ext_resource type="Script" uid="uid://b5y6tr271dy0t" path="res://Scripts/flag.gd" id="1_u6i0b"]
+[ext_resource type="Texture2D" uid="uid://n5vdx4viqev6" path="res://Sprites/TileSet Wasteland/Outline/Flag-Sheet.png" id="2_25107"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nref4"]
+atlas = ExtResource("2_25107")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0um3q"]
+atlas = ExtResource("2_25107")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fiwh"]
+atlas = ExtResource("2_25107")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_teocm"]
+atlas = ExtResource("2_25107")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_do0kw"]
+atlas = ExtResource("2_25107")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvcyv"]
+atlas = ExtResource("2_25107")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxkm2"]
+atlas = ExtResource("2_25107")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6rog"]
+atlas = ExtResource("2_25107")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dg3rp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nref4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0um3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fiwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_teocm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_do0kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvcyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxkm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6rog")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ngmd"]
+size = Vector2(27, 42)
+
+[node name="Flag" type="Area2D"]
+position = Vector2(734, 329)
+script = ExtResource("1_u6i0b")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5.5, 0.5)
+scale = Vector2(1.34375, 1.96875)
+sprite_frames = SubResource("SpriteFrames_dg3rp")
+animation = &"Idle"
+frame_progress = 0.200124
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(4.5, 11)
+shape = SubResource("RectangleShape2D_5ngmd")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

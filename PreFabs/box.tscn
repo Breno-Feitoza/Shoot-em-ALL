@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://cbbpal3j4xu6a"]
+
+[ext_resource type="Script" uid="uid://dhmr0pmjh3mjj" path="res://Scripts/box.gd" id="1_13n63"]
+[ext_resource type="Texture2D" uid="uid://7xesc8ss3nn0" path="res://Sprites/TileSet Wasteland/Outline/Chest-Sheet.png" id="2_topye"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo4ug"]
+atlas = ExtResource("2_topye")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjve4"]
+atlas = ExtResource("2_topye")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wtpt"]
+atlas = ExtResource("2_topye")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6ytg"]
+atlas = ExtResource("2_topye")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f67xd"]
+atlas = ExtResource("2_topye")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04o16"]
+atlas = ExtResource("2_topye")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8yonb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo4ug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjve4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wtpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6ytg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f67xd")
+}],
+"loop": false,
+"name": &"Hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04o16")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwtvq"]
+size = Vector2(20, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ok5fp"]
+size = Vector2(16, 13)
+
+[node name="Box" type="StaticBody2D"]
+position = Vector2(389, 338)
+script = ExtResource("1_13n63")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8yonb")
+animation = &"Hit"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_fwtvq")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_ok5fp")
+debug_color = Color(0.92109, 5.66018e-05, 0.692492, 0.42)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

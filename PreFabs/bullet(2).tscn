@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://bpq120k1b4se8"]
+
+[ext_resource type="Script" uid="uid://7h05b6hptbtl" path="res://Scripts/bullet(2).gd" id="1_mvfss"]
+[ext_resource type="Texture2D" uid="uid://yfqnf1dw8t7d" path="res://Sprites/Bullet 24x24 Free Part 1/Bullet 24x24 Free Part 1A.png" id="1_vfkl8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mvfss"]
+radius = 7.07107
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rxla"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(384, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cau5i"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(408, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30npn"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(432, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3q100"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(456, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilu4e"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(480, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sci7g"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(504, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6lpw"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(528, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ti54"]
+atlas = ExtResource("1_vfkl8")
+region = Rect2(552, 48, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vo6a4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rxla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cau5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30npn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3q100")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilu4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sci7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6lpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ti54")
+}],
+"loop": true,
+"name": &"Shoot",
+"speed": 10.0
+}]
+
+[node name="Bullet(2)" type="Area2D" groups=["enemies_bullet"]]
+script = ExtResource("1_mvfss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mvfss")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.5
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vo6a4")
+animation = &"Shoot"
+autoplay = "Shoot"
+frame_progress = 0.508486
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

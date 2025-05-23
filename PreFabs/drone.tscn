@@ -1,0 +1,146 @@
+[gd_scene load_steps=20 format=3 uid="uid://cu63gg0x777ta"]
+
+[ext_resource type="Script" uid="uid://btvn4wlyt3r11" path="res://Scripts/drone.gd" id="1_7vk4a"]
+[ext_resource type="Texture2D" uid="uid://lmllh0g1ha1b" path="res://Sprites/Free City Enemies Pixel Art/5/Idle.png" id="2_fvt34"]
+[ext_resource type="Texture2D" uid="uid://cw4mpuv2k56lf" path="res://Sprites/Free City Enemies Pixel Art/5/Death.png" id="2_x6ri7"]
+[ext_resource type="Texture2D" uid="uid://cii8ukfnl2528" path="res://Sprites/Free City Enemies Pixel Art/5/Walk.png" id="3_x6ri7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrhct"]
+atlas = ExtResource("2_x6ri7")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_laepi"]
+atlas = ExtResource("2_x6ri7")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2sdn"]
+atlas = ExtResource("2_x6ri7")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkuip"]
+atlas = ExtResource("2_x6ri7")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgvc4"]
+atlas = ExtResource("2_fvt34")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dntu5"]
+atlas = ExtResource("2_fvt34")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckdlu"]
+atlas = ExtResource("2_fvt34")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2wrx"]
+atlas = ExtResource("2_fvt34")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soyft"]
+atlas = ExtResource("3_x6ri7")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5pk8"]
+atlas = ExtResource("3_x6ri7")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvuxg"]
+atlas = ExtResource("3_x6ri7")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4crux"]
+atlas = ExtResource("3_x6ri7")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrhct"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrhct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_laepi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2sdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkuip")
+}],
+"loop": true,
+"name": &"Die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgvc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dntu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckdlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2wrx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soyft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5pk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvuxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4crux")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_laepi"]
+radius = 12.0416
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y2sdn"]
+radius = 13.0
+
+[node name="Drone" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_7vk4a")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(9, -2)
+sprite_frames = SubResource("SpriteFrames_nrhct")
+animation = &"Die"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_laepi")
+
+[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_y2sdn")
+debug_color = Color(0.996078, 0, 0, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

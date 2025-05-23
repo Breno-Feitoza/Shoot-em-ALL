@@ -1,0 +1,134 @@
+[gd_scene load_steps=19 format=3 uid="uid://dcm3jgfsolkgc"]
+
+[ext_resource type="Texture2D" uid="uid://dnmvkl6a77lal" path="res://Sprites/Free City Enemies Pixel Art/6/Idle.png" id="1_7aeps"]
+[ext_resource type="Script" uid="uid://cptof0jbqdc8x" path="res://Scripts/turret.gd" id="1_20cxs"]
+[ext_resource type="Texture2D" uid="uid://mvyk0x5tqg8v" path="res://Sprites/Free City Enemies Pixel Art/6/Attack.png" id="2_mur70"]
+[ext_resource type="Texture2D" uid="uid://de4vogvg1o7wr" path="res://Sprites/Free City Enemies Pixel Art/6/Death.png" id="3_mur70"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02iw6"]
+atlas = ExtResource("2_mur70")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y366"]
+atlas = ExtResource("2_mur70")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jxuc"]
+atlas = ExtResource("2_mur70")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dva7"]
+atlas = ExtResource("2_mur70")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy6dx"]
+atlas = ExtResource("3_mur70")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcjvo"]
+atlas = ExtResource("3_mur70")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w16de"]
+atlas = ExtResource("3_mur70")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xivk7"]
+atlas = ExtResource("3_mur70")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m7s6"]
+atlas = ExtResource("1_7aeps")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20cxs"]
+atlas = ExtResource("1_7aeps")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mur70"]
+atlas = ExtResource("1_7aeps")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emgmm"]
+atlas = ExtResource("1_7aeps")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_02iw6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02iw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y366")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jxuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dva7")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy6dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcjvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w16de")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xivk7")
+}],
+"loop": true,
+"name": &"Die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m7s6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20cxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mur70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emgmm")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mur70"]
+size = Vector2(17, 34)
+
+[node name="Turret" type="CharacterBody2D"]
+position = Vector2(303, 181)
+script = ExtResource("1_20cxs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, -10)
+sprite_frames = SubResource("SpriteFrames_02iw6")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(15, 13, 15, 7, 14, 7, 14, 6, 13, 6, 13, 5, 8, 5, 8, 0, 6, 0, 6, -1, 13, -1, 13, -2, 14, -2, 14, -6, 13, -6, 13, -7, 6, -7, 6, -8, 8, -8, 8, -14, 7, -14, 7, -16, 6, -16, 6, -17, 5, -17, 5, -18, 4, -18, 4, -19, 2, -19, 2, -20, -3, -20, -3, -19, -5, -19, -5, -18, -6, -18, -6, -17, -7, -17, -7, -16, -8, -16, -8, -14, -9, -14, -9, -8, -7, -8, -7, -7, -8, -7, -8, -6, -9, -6, -9, -2, -8, -2, -8, -1, -7, -1, -7, 0, -9, 0, -9, 5, -13, 5, -13, 6, -14, 6, -14, 7, -15, 7, -15, 13, -14, 13, -14, 14, 14, 14, 14, 13)
+
+[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_mur70")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
